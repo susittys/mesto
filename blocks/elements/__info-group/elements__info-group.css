@@ -1,0 +1,10 @@
+.elements__info-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    margin: 0;
+    padding: 25px 15px 31px 21px;
+    column-gap: 10px;
+    box-sizing: border-box;
+}

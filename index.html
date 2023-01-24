@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Места Республики Коми</title>
+    <link href="pages/index.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+</head>
+<body class="root">
+    <div class="page">
+        <div class="popup">
+            <div class="popup__container">
+                <form class="">
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <label>
+                        <input class="popup__name" type="text" placeholder="Введите имя" minlength="2" maxlength="20" required />
+                    </label>
+                    <label>
+                        <input class="popup__job" type="text" placeholder="Введите профессию" minlength="2" maxlength="30" required />
+                    </label>
+                    <input class="popup__submit" type="submit"/>
+                </form>
+                <button class="popup__close"></button>
+            </div>
+            <div class="popup__overlay"></div>
+        </div>
+
+        <header class="header">
+            <a href="#">
+                <img class="header__logo" src="./images/logo/logo_white.svg" alt="Логотип Места России">
+            </a>
+        </header>
+
+        <main>
+            <section class="profile">
+                <img class="profile__avatar" src="./images/Jacques_Cousteau_avatar.jpg" alt="Аватар Профиля">
+                <div class="profile__info">
+                    <h2 class="profile__name">Жак-Ив Кусто</h2>
+                    <button class="profile__edit"></button>
+                    <p class="profile__job">Исследователь океана</p>
+                </div>
+                <button class="profile__add"></button>
+            </section>
+
+            <section class="elements">
+                <ul class="elements__collection">
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/vorkuta.jpg" alt="Город Воркута в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Воркута</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/Syktyvkar.jpg" alt="Город Сыктывкар в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Сыктывкар</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/vuktyl.jpg" alt="Город Вуктыл в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Вуктыл</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/Usinsk.jpg" alt="Город Усинск в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Усинск</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/ukhta.jpeg" alt="Город Ухта в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Ухта</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+
+                    <li class="elements__element">
+                        <div class="elements__image-group">
+                            <div class="elements__image-mask"></div>
+                            <img class="elements__image" src="./images/cities/Pechora.jpg" alt="Город Печора в республике Коми">
+                        </div>
+                        <div class="elements__info-group">
+                            <h3 class="elements__title">Печора</h3>
+                            <button class="elements__like"></button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2022 Mesto Russia-Komi</p>
+        </footer>
+    </div>
+    <script src="./blocks/popup/_opened/popup_opened.js"></script>
+    <script src="./blocks/popup/__close/popup__close.js"></script>
+    <script src="./blocks/popup/__submit/popup__submit.js"></script>
+</body>
+</html>
