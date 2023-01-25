@@ -1,17 +1,17 @@
 .profile__info {
     flex-grow: 1;
     display: grid;
-    gap: 16px 18px;
+    gap: 9px 17px;
     grid-template-columns: auto 1fr;
-    align-items: center;
+    align-items: baseline;
     margin: 0;
     padding: 0;
 }
 
 @media only screen and (max-width: 690px) {
     .profile__info {
-        margin: 23px 0 36px 0;
+        margin: 24px 0 34px;
         grid-template-columns: 1fr auto 1fr;
-        gap: 14px;
+        gap: 7px 10px;
     }
 }
