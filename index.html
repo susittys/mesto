@@ -26,9 +26,8 @@
             </section>
 
             <section class="elements">
-                <ul class="elements__collection">
-                </ul>
-                <p class="elements__no-places" hidden>Нет добавленных карточек</p>
+                <ul class="elements__collection"></ul>
+                <h2 class="elements__no-places" hidden>Нет добавленных карточек</h2>
             </section>
         </main>
 
@@ -40,8 +39,8 @@
             <div class="popup__container">
                 <form name="editProfile">
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <input name="nameProfile" class="popup__input popup__input_type_name" type="text" placeholder="Введите имя" minlength="2" maxlength="20" required />
-                    <input name="jobProfile" class="popup__input popup__input_type_job" type="text" placeholder="Введите профессию" minlength="2" maxlength="30" required />
+                    <input name="nameProfile" class="popup__input popup__input_type_name" type="text" placeholder="Введите имя" minlength="2" maxlength="20" required >
+                    <input name="jobProfile" class="popup__input popup__input_type_job" type="text" placeholder="Введите профессию" minlength="2" maxlength="30" required >
                     <button type="submit" class="popup__submit">Сохранить</button>
                 </form>
                 <button type="button" class="popup__close popup__close_type_profile"></button>
@@ -52,8 +51,8 @@
             <div class="popup__container">
                 <form name="newPoint">
                     <h2 class="popup__title">Новое место</h2>
-                    <input name="titlePlace" class="popup__input popup__input_type_title" type="text" placeholder="Введите название" minlength="2" maxlength="30" required />
-                    <input name="linkPoint" class="popup__input popup__input_type_link" type="text" placeholder="Укажите ссылку" minlength="4" maxlength="128" required />
+                    <input name="titlePlace" class="popup__input popup__input_type_title" type="text" placeholder="Введите название" minlength="2" maxlength="30" required >
+                    <input name="linkPoint" class="popup__input popup__input_type_link" type="text" placeholder="Укажите ссылку" minlength="4" maxlength="128" required >
                     <button type="submit" class="popup__submit">Создать</button>
                 </form>
                 <button type="button" class="popup__close popup__close_type_place"></button>
