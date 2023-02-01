@@ -1,0 +1,6 @@
+.popup_type_image {
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
