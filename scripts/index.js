@@ -74,9 +74,9 @@ function submitAddPlace(event) {
     event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     // Так мы можем определить свою логику отправки.
 
-    let infoPlace = {};
-        infoPlace['name']  = titleAddPlace.value;
-        infoPlace['link']  = linkAddPlace.value;
+    const infoPlace = {};
+          infoPlace['name'] = titleAddPlace.value;
+          infoPlace['link'] = linkAddPlace.value;
 
     if ( infoPlace['name'] && infoPlace['link'] ) createPlaces( infoPlace );
 
@@ -110,7 +110,7 @@ function createPlaces( place = {} ) {
     });
 
     buttonRemoveElement.addEventListener('click', function (removeBtn) {
-        let listElement = removeBtn.target.closest('.elements__element');
+        const listElement = removeBtn.target.closest('.elements__element');
         listElement.remove();
         checkNoPlaces();
     });
