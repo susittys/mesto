@@ -24,12 +24,12 @@ const popupFullImage = document.querySelector('.popup_type_image'),
       imageFullImage = popupFullImage.querySelector('.popup__full-image'),
       titleFullImage = popupFullImage.querySelector('.popup__subtitle-image');
 
-const buttonCloseList = document.querySelectorAll('.popup__close');
+const listCloseButtons = document.querySelectorAll('.popup__close');
 
 const placeTemplate = document.querySelector('#place-template').content;
 
 
-//####################################//
+    //####################################//
    // Попап-окно: Редактирование профиля //
   //####################################//
 
@@ -37,6 +37,7 @@ const placeTemplate = document.querySelector('#place-template').content;
 buttonEditProfile.addEventListener('click', function () {
     nameEditProfile.value = nameProfile.textContent;
     jobEditProfile.value  = jobProfile.textContent;
+
     openPopup(popupEditProfile);
 });
 
@@ -60,8 +61,8 @@ function submitEditProfile(event) {
 
 // обработчик клика кнопки Добавление места
 buttonAddPlace.addEventListener('click', function () {
-    titleAddPlace.value = '';
-    linkAddPlace.value  = '';
+    // titleAddPlace.value = '';
+    // linkAddPlace.value  = '';
     openPopup(popupAddPlace);
 });
 // обр-ик клика кн-ки "Сохранить"
@@ -130,7 +131,6 @@ function showFullImage(titleImage, linkImage) {
     imageFullImage.src = linkImage;
     imageFullImage.alt = titleImage;
     titleFullImage.textContent = titleImage;
-
     openPopup(popupFullImage);
 }
 
@@ -142,21 +142,59 @@ function showFullImage(titleImage, linkImage) {
 // при инициализации страницы
 initialCards.forEach(createPlaces);
 
-// обр-ик клика кнопки X (закрытия)
-
-buttonCloseList.forEach(btn => {
+// обр-ик клика кнопки X (закрытия) и клика по Попап (всем Попап дан атрибут tabindex=0)
+// при открытии формы фокус передаётся на вызываемый Попап, где каждой кнопке X..
+listCloseButtons.forEach(btn => {
+    // ..определяется родительский popup,
     const popup = btn.closest('.popup');
+
+    // Попап слушает нажатия клавиш и кликов по себе
+    ['keydown','click'].forEach( act => {
+        // исполняется триггер ф-ия actionHandler для каждого действия
+
+        popup.addEventListener(act, actionHandler);
+    });
+
+    // каждая кнопка X ожидает "клик" и выполняет ф-ию закрытия Попап
     btn.addEventListener('click', () => closePopup(popup));
-})
+});
+
+
+// Фн-ия для триггеров, назначенных для кнопок закрытия (X) и Попап
+function actionHandler(evt) {
+    evt.stopPropagation(); // остановка пузырькового распространения события click на input'ы
+    // опр-ся элемент формы, по которому произошёл клик
+    let elementPopup = evt.target;
+
+    // если была нажата клавиша "Esc"
+    if ( evt.key === 'Escape' ) {
+        // при этом не обнаружен Попап окно, который нужно закрыть
+        if ( !elementPopup.classList.contains('popup') ) {
+            // находится ближайший родительский Попап
+            elementPopup = elementPopup.closest('.popup')
+        }
+        // передаётся ф-ии на закрытие найденного Попап
+        closePopup(elementPopup);
+    // иначе, если был сделан клик только вне форме
+    } else if (evt.type === 'click') {
+        // Попап будет закрыт
+        closePopup(elementPopup);
+    }
+}
+
 
 // Фн-ия открытия Попап
 function openPopup(elementForm) {
-    elementForm.classList.add("popup_opened")
+    elementForm.classList.add("popup_opened");
+    // из-за анимировании св-ва visable Попап окон, требуется устанавливать отсрочку фокуса равное времени анимации
+    setTimeout( ()=> elementForm.focus(), 300);
 }
 
 // Фн-ия закрытия Попап
-function closePopup(elementForm) {
-    elementForm.classList.remove("popup_opened")
+function closePopup(elementPopup) {
+    const elementForm = elementPopup.querySelector('.popup__form');
+    elementPopup.classList.remove("popup_opened");
+    resetForm( elementForm );
 }
 
 //если нет places(карточек), то показать текст "нет добавленных.."
@@ -164,4 +202,20 @@ function checkNoPlaces() {
     const listItems = [...elementsContainer.querySelectorAll("li")];
     if ( !listItems || !listItems.length ) elementsNoPlaces.removeAttribute('hidden')
     else if ( listItems.length ) elementsNoPlaces.setAttribute('hidden',"true");
+}
+
+function resetForm( elementForm ) {
+    if ( elementForm ) {
+        elementForm.reset();
+        const inputList = elementForm.querySelectorAll('.popup__input'),
+              errorList = elementForm.querySelectorAll('.popup__error');
+
+        inputList.forEach( elementInput => {
+            elementInput.classList.remove('popup__input_type_error');
+        });
+
+        errorList.forEach( elementError => {
+            elementError.classList.remove('popup__error_visible');
+        });
+    }
 }

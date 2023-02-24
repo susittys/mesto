@@ -10,7 +10,8 @@
     width: 430px;
     margin: 0;
     padding: 34px 36px;
-    z-index: 100;
+    z-index: 10;
+    min-height: 330px;
     box-sizing: border-box;
 }
 
@@ -18,5 +19,6 @@
     .popup__container {
         width: calc(100% - 38px);
         padding: 25px 22px;
+        min-height: 322px;
     }
 }

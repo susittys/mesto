@@ -10,7 +10,7 @@
     background-color: black;
     border: 0;
     border-radius: 2px;
-    margin: 0;
+    margin: 29px 0 0 0;
     padding: 0;
     cursor: url(../../../images/cursors/cursor_hover_btn.svg), pointer;
 }
@@ -20,6 +20,7 @@
         height: 46px;
         font-size: 14px;
         line-height: 17px;
+        margin: 24px 0 0 0;
     }
 }
 
@@ -33,3 +34,10 @@
     border: 1px solid black;
     opacity: 1;
 }
+
+.popup__submit:disabled {
+    background-color: white;
+    color: #C4C4C4;
+    border: 1px solid #C4C4C4;
+}
+
