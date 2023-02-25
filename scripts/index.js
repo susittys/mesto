@@ -1,6 +1,7 @@
 // эл-ты Набора карточек
 const elementsContainer = document.querySelector('.elements__collection'),
-      elementsNoPlaces  = document.querySelector('.elements__no-places');
+      elementsNoPlaces  = document.querySelector('.elements__no-places'),
+      popupsList        = document.querySelectorAll('.popup');
 
 // эл-ты блока Профиль
 const buttonEditProfile = document.querySelector('.profile__edit'),
@@ -35,6 +36,9 @@ const placeTemplate = document.querySelector('#place-template').content;
 
 // обработчик клика кнопки Редактирования Профиля
 buttonEditProfile.addEventListener('click', function () {
+    const comingForm = popupEditProfile.querySelector('.popup__form');
+    resetForm( comingForm );
+
     nameEditProfile.value = nameProfile.textContent;
     jobEditProfile.value  = jobProfile.textContent;
 
@@ -50,7 +54,7 @@ function submitEditProfile(event) {
     // Так мы можем определить свою логику отправки.
 
     nameProfile.textContent = nameEditProfile.value;
-    jobProfile.textContent  =  jobEditProfile.value;
+    jobProfile.textContent  = jobEditProfile.value;
 
     closePopup(popupEditProfile);
 }
@@ -61,8 +65,9 @@ function submitEditProfile(event) {
 
 // обработчик клика кнопки Добавление места
 buttonAddPlace.addEventListener('click', function () {
-    // titleAddPlace.value = '';
-    // linkAddPlace.value  = '';
+    const comingForm = popupAddPlace.querySelector('.popup__form');
+    resetForm( comingForm );
+
     openPopup(popupAddPlace);
 });
 // обр-ик клика кн-ки "Сохранить"
@@ -142,59 +147,52 @@ function showFullImage(titleImage, linkImage) {
 // при инициализации страницы
 initialCards.forEach(createPlaces);
 
-// обр-ик клика кнопки X (закрытия) и клика по Попап (всем Попап дан атрибут tabindex=0)
-// при открытии формы фокус передаётся на вызываемый Попап, где каждой кнопке X..
-listCloseButtons.forEach(btn => {
-    // ..определяется родительский popup,
-    const popup = btn.closest('.popup');
+// обработчики ESC и клика по оверлэю попапов
+function toggleEventListenerEscapeClose(mode) {
+    if ( !mode ) {
+        document.removeEventListener('keydown', closeByEscape);
+    } else document.addEventListener('keydown', closeByEscape);
+}
 
-    // Попап слушает нажатия клавиш и кликов по себе
-    ['keydown','click'].forEach( act => {
-        // исполняется триггер ф-ия actionHandler для каждого действия
-
-        popup.addEventListener(act, actionHandler);
-    });
-
-    // каждая кнопка X ожидает "клик" и выполняет ф-ию закрытия Попап
-    btn.addEventListener('click', () => closePopup(popup));
+// обр-ик клика по Попап (всем Попап дан атрибут tabindex="-1" – только программная фокусировка)
+Array.from( popupsList ).forEach( popup => {
+    popup.addEventListener('click', closeByClick);
 });
 
+// обр-ик клика кнопки X (закрытия) и клика
+listCloseButtons.forEach(btn => {
+    btn.addEventListener('click', closeByClick);
+});
 
-// Фн-ия для триггеров, назначенных для кнопок закрытия (X) и Попап
-function actionHandler(evt) {
-    evt.stopPropagation(); // остановка пузырькового распространения события click на input'ы
-    // опр-ся элемент формы, по которому произошёл клик
-    let elementPopup = evt.target;
-
-    // если была нажата клавиша "Esc"
-    if ( evt.key === 'Escape' ) {
-        // при этом не обнаружен Попап окно, который нужно закрыть
-        if ( !elementPopup.classList.contains('popup') ) {
-            // находится ближайший родительский Попап
-            elementPopup = elementPopup.closest('.popup')
-        }
-        // передаётся ф-ии на закрытие найденного Попап
-        closePopup(elementPopup);
-    // иначе, если был сделан клик только вне форме
-    } else if (evt.type === 'click') {
-        // Попап будет закрыт
-        closePopup(elementPopup);
+// ф-ия закрытия попап по нажатию клавиши ESC
+function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup)
     }
 }
 
+// ф-ия закрытия попап по клику на оверлэй
+function closeByClick(evt) {
+    if ( evt.currentTarget === evt.target ) { // проверка на клик по оверлэю
+        evt.stopPropagation(); // остановка пузырькового распространения события click на input'ы
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
+    } else return false; // если нажат на любой элемент, кроме оверлэя, попап не будет закрыт
+}
 
 // Фн-ия открытия Попап
 function openPopup(elementForm) {
     elementForm.classList.add("popup_opened");
-    // из-за анимировании св-ва visable Попап окон, требуется устанавливать отсрочку фокуса равное времени анимации
-    setTimeout( ()=> elementForm.focus(), 300);
+
+    toggleEventListenerEscapeClose(true);
 }
 
 // Фн-ия закрытия Попап
 function closePopup(elementPopup) {
-    const elementForm = elementPopup.querySelector('.popup__form');
     elementPopup.classList.remove("popup_opened");
-    resetForm( elementForm );
+
+    toggleEventListenerEscapeClose(false);
 }
 
 //если нет places(карточек), то показать текст "нет добавленных.."
@@ -208,7 +206,8 @@ function resetForm( elementForm ) {
     if ( elementForm ) {
         elementForm.reset();
         const inputList = elementForm.querySelectorAll('.popup__input'),
-              errorList = elementForm.querySelectorAll('.popup__error');
+              errorList = elementForm.querySelectorAll('.popup__error'),
+              buttonElement = elementForm.querySelector('.popup__submit');
 
         inputList.forEach( elementInput => {
             elementInput.classList.remove('popup__input_type_error');
@@ -217,5 +216,8 @@ function resetForm( elementForm ) {
         errorList.forEach( elementError => {
             elementError.classList.remove('popup__error_visible');
         });
+
+        buttonElement.classList.add('popup__submit_disabled');
+        buttonElement.disabled = true;
     }
 }

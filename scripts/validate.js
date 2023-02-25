@@ -10,7 +10,7 @@ enableValidation({
     errorClass: 'popup__error_visible'           // стили строки с ошибкой, делающий её видимой под полями ввода форм
 });
 
-// Фу-ия устанавливает слушатели на  валидации с классами форм
+// Фу-ия устанавливает слушатели на валидации с классами форм
 function enableValidation( objElements ) {
     const formList = Array.from( document.querySelectorAll( objElements.formSelector ) );
 
