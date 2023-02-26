@@ -25,8 +25,6 @@ const popupFullImage = document.querySelector('.popup_type_image'),
       imageFullImage = popupFullImage.querySelector('.popup__full-image'),
       titleFullImage = popupFullImage.querySelector('.popup__subtitle-image');
 
-const listCloseButtons = document.querySelectorAll('.popup__close');
-
 const placeTemplate = document.querySelector('#place-template').content;
 
 
@@ -70,7 +68,6 @@ buttonAddPlace.addEventListener('click', function () {
 
     openPopup(popupAddPlace);
 });
-// обр-ик клика кн-ки "Сохранить"
 
 // обр-ик клика кн-ки "Создать"
 formAddPlace.addEventListener('submit', submitAddPlace);
@@ -147,22 +144,19 @@ function showFullImage(titleImage, linkImage) {
 // при инициализации страницы
 initialCards.forEach(createPlaces);
 
-// обработчики ESC и клика по оверлэю попапов
-function toggleEventListenerEscapeClose(mode) {
-    if ( !mode ) {
-        document.removeEventListener('keydown', closeByEscape);
-    } else document.addEventListener('keydown', closeByEscape);
-}
-
 // обр-ик клика по Попап (всем Попап дан атрибут tabindex="-1" – только программная фокусировка)
 Array.from( popupsList ).forEach( popup => {
-    popup.addEventListener('click', closeByClick);
+
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup)
+        }
+    })
 });
 
-// обр-ик клика кнопки X (закрытия) и клика
-listCloseButtons.forEach(btn => {
-    btn.addEventListener('click', closeByClick);
-});
 
 // ф-ия закрытия попап по нажатию клавиши ESC
 function closeByEscape(evt) {
@@ -172,13 +166,11 @@ function closeByEscape(evt) {
     }
 }
 
-// ф-ия закрытия попап по клику на оверлэй
-function closeByClick(evt) {
-    if ( evt.currentTarget === evt.target ) { // проверка на клик по оверлэю
-        evt.stopPropagation(); // остановка пузырькового распространения события click на input'ы
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    } else return false; // если нажат на любой элемент, кроме оверлэя, попап не будет закрыт
+// обработчики ESC и клика по оверлэю попапов
+function toggleEventListenerEscapeClose(mode) {
+    if ( !mode ) {
+        document.removeEventListener('keydown', closeByEscape);
+    } else document.addEventListener('keydown', closeByEscape);
 }
 
 // Фн-ия открытия Попап
