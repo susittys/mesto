@@ -73,16 +73,34 @@ export default class {
         const errorElement = this._formElement.querySelector(`.${ this._inputElement.id }-error`);
         const errorMessage = this._inputElement.validationMessage;
 
-        this._inputElement.classList.add('popup__input_type_error');
+        this._inputElement.classList.add(this._options.inputErrorClass);
         errorElement.textContent = errorMessage;
-        errorElement.classList.add('popup__error_visible');
+        errorElement.classList.add(this._options.errorClass);
     }
 
     _hideInputError() {
         const errorElement = this._formElement.querySelector(`.${ this._inputElement.id }-error`);
-        this._inputElement.classList.remove('popup__input_type_error');
-        errorElement.classList.remove('popup__error_visible');
+        this._inputElement.classList.remove(this._options.inputErrorClass);
+        errorElement.classList.remove(this._options.errorClass);
         errorElement.textContent = '';
+    }
+
+    resetForm() {
+        this._formElement.reset();
+        const inputList = this._formElement.querySelectorAll(this._options.inputSelector),
+            errorList   = this._formElement.querySelectorAll(this._options.inputErrorSelector),
+            buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
+
+        inputList.forEach( elementInput => {
+            elementInput.classList.remove(this._options.inputErrorClass);
+        });
+
+        errorList.forEach( elementError => {
+            elementError.classList.remove(this._options.errorClass);
+        });
+
+        buttonElement.classList.add(this._options.inactiveButtonClass);
+        buttonElement.disabled = true;
     }
 }
 

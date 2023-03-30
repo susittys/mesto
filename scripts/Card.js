@@ -1,5 +1,9 @@
-import { checkNoPlaces } from './index.js';
-import { openPopup } from './index.js';
+import {openPopup, checkNoPlaces} from './utils/utils.js';
+
+const popupFullImage = document.querySelector('.popup_type_image'),
+      titleFullImage = popupFullImage.querySelector('.popup__subtitle-image'),
+      imageFullImage = popupFullImage.querySelector('.popup__full-image');
+
 
 export default class {
     constructor(data, selectorTemplate) {
@@ -54,10 +58,6 @@ export default class {
 
     // Фн-ия открытия и загрузки данных в попап
     _showFullImage() {
-        const popupFullImage = document.querySelector('.popup_type_image'),
-            imageFullImage = popupFullImage.querySelector('.popup__full-image'),
-            titleFullImage = popupFullImage.querySelector('.popup__subtitle-image');
-
         imageFullImage.src = this._link;
         imageFullImage.alt = this._name;
         titleFullImage.textContent = this._name;
