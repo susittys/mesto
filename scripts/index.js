@@ -1,3 +1,7 @@
+import initialCards from './cards.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // эл-ты Набора карточек
 const elementsContainer = document.querySelector('.elements__collection'),
       elementsNoPlaces  = document.querySelector('.elements__no-places'),
@@ -20,12 +24,6 @@ const popupAddPlace = document.querySelector('.popup_type_place'),
       formAddPlace  = popupAddPlace.querySelector('.popup__form'),
       titleAddPlace = popupAddPlace.querySelector('.popup__input_type_title'),
       linkAddPlace  = popupAddPlace.querySelector('.popup__input_type_link');
-
-const popupFullImage = document.querySelector('.popup_type_image'),
-      imageFullImage = popupFullImage.querySelector('.popup__full-image'),
-      titleFullImage = popupFullImage.querySelector('.popup__subtitle-image');
-
-const placeTemplate = document.querySelector('#place-template').content;
 
 
     //####################################//
@@ -57,6 +55,7 @@ function submitEditProfile(event) {
     closePopup(popupEditProfile);
 }
 
+
     //##############################//
    // Попап-окно: Добавление места //
   //##############################//
@@ -81,82 +80,24 @@ function submitAddPlace(event) {
           infoPlace['name'] = titleAddPlace.value;
           infoPlace['link'] = linkAddPlace.value;
 
-    if ( infoPlace['name'] && infoPlace['link'] ) createPlaces( infoPlace );
+    if ( infoPlace['name'] && infoPlace['link'] ) renderPlaces( infoPlace );
 
     closePopup(popupAddPlace);
 }
 
-function renderPlaces(placesCard) {
+function renderPlaces(placeData) {
+
+    const placesCard = new Card( placeData, '#place-template').getCard();
+
     elementsContainer.prepend(placesCard);
 
     // если картинка добавлена, убрать "Нет добавленных.."
     checkNoPlaces();
 }
 
-// в случае добавления нового, примет массив с одним объектом
-function createPlaces( place = {} ) {
-    const placeElement  = placeTemplate.querySelector('.elements__element').cloneNode(true),
-          placeImageGrp = placeElement.querySelector('.elements__image-group');
-
-    const buttonLikeElement = placeElement.querySelector('.elements__like'),
-        buttonRemoveElement = placeElement.querySelector('.elements__remove'),
-        titlePlaceElement   = placeElement.querySelector('.elements__title'),
-        imagePlaceElement   = placeElement.querySelector('.elements__image');
-
-    titlePlaceElement.textContent  = place['name'];
-    imagePlaceElement.src = place['link'];
-    imagePlaceElement.alt = place['name'];
-
-    // обработчики кликов кнопок на наборе карточек с фото
-    buttonLikeElement.addEventListener('click', function (likeBtn) {
-        likeBtn.target.classList.toggle('elements__like_active');
-    });
-
-    buttonRemoveElement.addEventListener('click', function (removeBtn) {
-        const listElement = removeBtn.target.closest('.elements__element');
-        listElement.remove();
-        checkNoPlaces();
-    });
-
-    placeImageGrp.addEventListener('click', () => showFullImage(place.name, place.link) );
-
-    renderPlaces(placeElement);
-}
-
-
-    //##################################//
-   // Попап-окно: Просмотр изображения //
-  //##################################//
-
-// Фн-ия открытия и загрузки данных в попап
-function showFullImage(titleImage, linkImage) {
-    imageFullImage.src = linkImage;
-    imageFullImage.alt = titleImage;
-    titleFullImage.textContent = titleImage;
-    openPopup(popupFullImage);
-}
-
-
     //###############//
    // Общие функции //
   //###############//
-
-// при инициализации страницы
-initialCards.forEach(createPlaces);
-
-// обр-ик клика по Попап (всем Попап дан атрибут tabindex="-1" – только программная фокусировка)
-Array.from( popupsList ).forEach( popup => {
-
-    popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
-        }
-        if (evt.target.classList.contains('popup__close')) {
-            closePopup(popup)
-        }
-    })
-});
-
 
 // ф-ия закрытия попап по нажатию клавиши ESC
 function closeByEscape(evt) {
@@ -174,7 +115,7 @@ function toggleEventListenerEscapeClose(mode) {
 }
 
 // Фн-ия открытия Попап
-function openPopup(elementForm) {
+export function openPopup(elementForm) {
     elementForm.classList.add("popup_opened");
 
     toggleEventListenerEscapeClose(true);
@@ -188,7 +129,7 @@ function closePopup(elementPopup) {
 }
 
 //если нет places(карточек), то показать текст "нет добавленных.."
-function checkNoPlaces() {
+export function checkNoPlaces() {
     const listItems = [...elementsContainer.querySelectorAll("li")];
     if ( !listItems || !listItems.length ) elementsNoPlaces.removeAttribute('hidden')
     else if ( listItems.length ) elementsNoPlaces.setAttribute('hidden',"true");
@@ -213,3 +154,39 @@ function resetForm( elementForm ) {
         buttonElement.disabled = true;
     }
 }
+
+
+    //########################//
+   // Инициализация страницы //
+  //########################//
+
+// при инициализации страницы
+initialCards.forEach(renderPlaces);
+
+// обр-ик клика по Попап (всем Попап дан атрибут tabindex="-1" – только программная фокусировка)
+Array.from( popupsList ).forEach( popup => {
+
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup)
+        }
+    })
+});
+
+// Запуск валидации с классами форм
+const options = {
+    inputSelector: '.popup__input',                    // поля ввода форм
+    fieldsetSelector: '.popup__fieldset',             // наборы полей ввода форм
+    inputErrorSelector: '.popup__error',             // строка информирующая об неудачной валидации полей ввода форм
+    submitButtonSelector: '.popup__submit',         // кнопки отправки форм
+    inactiveButtonClass: 'popup__submit_disabled', // стили кнопки отправки при неудачной валидации полей ввода форм
+    inputErrorClass: 'popup__input_type_error',   // стили полей ввода формы при неудачной валидации полей ввода форм
+    errorClass: 'popup__error_visible'           // стили строки с ошибкой, делающий её видимой под полями ввода форм
+};
+
+[formAddPlace, formEditProfile].forEach( verifyForm => {
+    new FormValidator(options, verifyForm).enableValidation()
+});

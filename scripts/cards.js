@@ -1,4 +1,4 @@
-const initialCards = [
+export default [
     {
         name: 'Воркута',
         link: './images/cities/vorkuta.jpg'
