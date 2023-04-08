@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Места Республики Коми</title>
-    <link href="pages/index.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <script type="module" src="./scripts/cards.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
 </head>
 <body class="root">
     <div class="page">
         <header class="header">
             <a href="#">
-                <img class="header__logo" src="./images/logo/logo_white.svg" alt="Логотип Места России">
+                <img class="header__logo" src="<%=require('./images/logo/logo_white.svg')%>" alt="Логотип Места России">
             </a>
         </header>
 
         <main>
             <section class="profile">
-                <img class="profile__avatar" src="./images/Jacques_Cousteau_avatar.jpg" alt="Аватар Профиля">
+                <img class="profile__avatar" src="<%=require('./images/Jacques_Cousteau_avatar.jpg')%>" alt="Аватар Профиля">
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button type="button" class="profile__edit"></button>
@@ -43,11 +40,11 @@
                     <fieldset class="popup__fieldset">
                         <h2 class="popup__title">Редактировать профиль</h2>
                         <div class="popup__row">
-                            <input name="nameProfile" class="popup__input popup__input_type_name" id="profile-name-input" type="text" placeholder="Введите имя" minlength="2" maxlength="40" autocomplete="off" required>
+                            <input name="name" class="popup__input popup__input_type_name" id="profile-name-input" type="text" placeholder="Введите имя" minlength="2" maxlength="40" autocomplete="off" required>
                             <span class="popup__error profile-name-input-error">Вы пропустили это поле.</span>
                         </div>
                         <div class="popup__row">
-                            <input name="jobProfile" class="popup__input popup__input_type_job" id="profile-job-input" type="text" placeholder="Введите профессию" minlength="2" maxlength="200" autocomplete="off" required>
+                            <input name="job" class="popup__input popup__input_type_job" id="profile-job-input" type="text" placeholder="Введите профессию" minlength="2" maxlength="200" autocomplete="off" required>
                             <span class="popup__error profile-job-input-error">Вы пропустили это поле.</span>
                         </div>
                         <button type="submit" class="popup__submit">Сохранить</button>
@@ -63,11 +60,11 @@
                     <h2 class="popup__title">Новое место</h2>
                     <fieldset class="popup__fieldset">
                         <div class="popup__row">
-                            <input name="titlePlace" class="popup__input popup__input_type_title" id="place-title-input" type="text" placeholder="Введите название" minlength="2" maxlength="30" autocomplete="off" required>
+                            <input name="name" class="popup__input popup__input_type_title" id="place-title-input" type="text" placeholder="Введите название" minlength="2" maxlength="30" autocomplete="off" required>
                             <span class="popup__error place-title-input-error">Вы пропустили это поле.</span>
                         </div>
                         <div class="popup__row">
-                            <input name="linkPoint" class="popup__input popup__input_type_link" id="place-link-input" type="url" placeholder="Укажите ссылку" minlength="4" maxlength="2083" autocomplete="off" required>
+                            <input name="link" class="popup__input popup__input_type_link" id="place-link-input" type="url" placeholder="Укажите ссылку" minlength="4" maxlength="2083" autocomplete="off" required>
                             <span class="popup__error place-link-input-error">Введите адрес сайта.</span>
                         </div>
                         <button type="submit" class="popup__submit">Создать</button>
@@ -79,7 +76,7 @@
 
         <div class="popup popup_type_image" tabindex="-1">
             <div class="popup__container popup__container_type_image">
-                <img class="popup__full-image" src="images/image_no-places.jpg" alt="Изображение города">
+                <img class="popup__full-image" src="<%=require('./images/image_no-places.jpg')%>" alt="Изображение города">
                 <p class="popup__subtitle-image">Описание изображения</p>
                 <button type="reset" class="popup__close"></button>
             </div>
@@ -92,7 +89,7 @@
             <button type="button" class="elements__remove"></button>
             <div class="elements__image-group">
                 <div class="elements__image-mask"></div>
-                <img class="elements__image" src="images/image_no-places.jpg" alt="Изображение города">
+                <img class="elements__image" src="<%=require('./images/image_no-places.jpg')%>" alt="Изображение города">
             </div>
             <div class="elements__info-group">
                 <h2 class="elements__title">Город</h2>

@@ -85,22 +85,22 @@ export default class {
         errorElement.textContent = '';
     }
 
-    resetForm() {
-        this._formElement.reset();
-        const inputList = this._formElement.querySelectorAll(this._options.inputSelector),
-            errorList   = this._formElement.querySelectorAll(this._options.inputErrorSelector),
-            buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
-
-        inputList.forEach( elementInput => {
-            elementInput.classList.remove(this._options.inputErrorClass);
-        });
-
-        errorList.forEach( elementError => {
-            elementError.classList.remove(this._options.errorClass);
-        });
-
-        buttonElement.classList.add(this._options.inactiveButtonClass);
-        buttonElement.disabled = true;
-    }
+    // resetForm() {
+    //         this._formElement.reset();
+    //         const inputList = this._formElement.querySelectorAll(this._options.inputSelector),
+    //             errorList   = this._formElement.querySelectorAll(this._options.inputErrorSelector),
+    //             buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
+    //
+    //         inputList.forEach( elementInput => {
+    //             elementInput.classList.remove(this._options.inputErrorClass);
+    //         });
+    //
+    //         errorList.forEach( elementError => {
+    //             elementError.classList.remove(this._options.errorClass);
+    //         });
+    //
+    //         buttonElement.classList.add(this._options.inactiveButtonClass);
+    //         buttonElement.disabled = true;
+    // }
 }
 
