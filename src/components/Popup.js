@@ -2,19 +2,18 @@ export default class {
     constructor( selectorPopup ) {
         this._popup = document.querySelector(selectorPopup);
         this._handleEscClose = this._handleEscClose.bind(this);
-        this._handleSubmit = () => {};
     }
 
     // Фн-ия открытия Попап
     open(){
         this._popup.classList.add("popup_opened");
-        this._setEventListeners()
+        this._setESCListener()
     }
 
     // Фн-ия закрытия Попап
     close(){
         this._popup.classList.remove("popup_opened");
-        this._remEventListeners()
+        this._remESCListener()
     }
 
     // ф-ия закрытия попап по нажатию клавиши ESC
@@ -24,9 +23,11 @@ export default class {
         }
     }
 
-    _setEventListeners(){
-        document.addEventListener('keyup', this._handleEscClose);
+    _handleFormSubmit(evt) {
+        evt.preventDefault();
+    }
 
+    setEventListeners(){
         this._popup.addEventListener('mousedown', (evt) => {
             // клик по оверлею
             if (evt.target.classList.contains('popup_opened')) {
@@ -38,8 +39,11 @@ export default class {
         })
     }
 
-    _remEventListeners(){
+    _setESCListener() {
+        document.addEventListener('keyup', this._handleEscClose);
+    }
+
+    _remESCListener() {
         document.removeEventListener('keyup', this._handleEscClose);
-        document.removeEventListener('keyup', this._handleSubmit);
     }
 }

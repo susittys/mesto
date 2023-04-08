@@ -1,20 +1,18 @@
 import Popup from "./Popup.js";
 import {titleFullImage, imageFullImage} from "../utils/constants.js";
-import nonImageLink from '../../images/image_no-places.jpg';
+import nonImageLink from '../images/image_no-places.jpg';
 
 export default class extends Popup {
-    constructor( data, selectorPopup ) {
+    constructor( selectorPopup ) {
         super(selectorPopup);
-        this._title = data.title;
-        this._link = data.link;
     }
 
-    open() {
+    open(data) {
         this._empty();
 
-        imageFullImage.src = this._link;
-        imageFullImage.alt = this._title;
-        titleFullImage.textContent = this._title;
+        imageFullImage.src = data.link;
+        imageFullImage.alt = data.title;
+        titleFullImage.textContent = data.title;
 
         super.open();
     }

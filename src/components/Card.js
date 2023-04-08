@@ -1,10 +1,10 @@
 import { checkNoPlaces } from '../utils/utils.js';
-import PopupWithImage from "./PopupWithImage.js";
 
 export default class {
-    constructor(data, selectorTemplate) {
+    constructor({ data, handleCardClick}, selectorTemplate) {
         this._link  = data.link;
         this._title = data.name;
+        this._handleCardClick = handleCardClick.bind(this);
         this._selectorTemplate = selectorTemplate
     }
 
@@ -52,19 +52,10 @@ export default class {
             }
         };
 
-        const fullImageButton = {
-            element: this.placeElement.querySelector('.elements__image-group'),
-            // Фн-ия открытия и загрузки данных в попап
-            click: function () {
-                const title = this._title,
-                      link = this._link;
-                const popupWithImage = new PopupWithImage({ title, link }, '.popup_type_image');
-                popupWithImage.open();
-            }
-        };
+        const fullImageButton = this.placeElement.querySelector('.elements__image-group');
 
         likeButton.element.addEventListener('click', likeButton.click.bind( likeButton.element ) );
         removeButton.element.addEventListener('click', removeButton.click.bind( removeButton.element ) );
-        fullImageButton.element.addEventListener('click', fullImageButton.click.bind( this ) );
+        fullImageButton.addEventListener('click', this._handleCardClick );
     }
 }

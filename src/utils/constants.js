@@ -1,12 +1,5 @@
-// эл-ты Набора карточек
-import FormValidator from "../components/FormValidator.js";
-
 const elementsNoPlaces = document.querySelector('.elements__no-places');
 const elementsContainer = document.querySelector('.elements__collection');
-
-// эл-ты блока Профиль
-const buttonEditProfile = document.querySelector('.profile__edit'),
-    buttonAddPlace    = document.querySelector('.profile__add');
 
 // эл-ты попап-окна Добавление места
 const popupElementAddPlace = document.querySelector('.popup_type_place'),
@@ -33,23 +26,18 @@ const options = {
     errorClass: 'popup__error_visible'           // стили строки с ошибкой, делающий её видимой под полями ввода форм
 };
 
-// формы попупсов с валидацией
-const formAddPlace  = new FormValidator(options, formElementPlace),
-    formEditProfile = new FormValidator(options, formElementEditProfile);
-
 export {
     elementsContainer,
     elementsNoPlaces,
 
-    buttonAddPlace,
-    buttonEditProfile,
-
-    formAddPlace,
-    formEditProfile,
+    formElementPlace,
+    formElementEditProfile,
 
     nameEditProfile,
     jobEditProfile,
 
     titleFullImage,
-    imageFullImage
+    imageFullImage,
+
+    options
 }

@@ -5,6 +5,7 @@ export default class extends Popup {
         super(selectorPopup);
         this._form = this._popup.querySelector('.popup__form');
         this._handleSubmit = handleSubmit;
+        this._handleFormSubmit = this._handleFormSubmit.bind(this);
     }
 
     _getInputValues(){
@@ -15,23 +16,25 @@ export default class extends Popup {
             valuesForm[input.name] = input.value;
         })
 
-        return valuesForm;
+        return valuesForm
     }
 
-    open() {
-        super.open();
+
+    _handleFormSubmit(evt) {
+        super._handleFormSubmit(evt)
+        this._handleSubmit( this._getInputValues() );
+    }
+
+
+    setEventListeners(){
+        super.setEventListeners();
+
+        // обр-ик клика кн-ки SUBMIT формы
+        this._form.addEventListener('submit', this._handleFormSubmit);
     }
 
     close() {
         super.close();
         this._form.reset();
-    }
-
-
-    _setEventListeners(){
-        super._setEventListeners();
-
-        // обр-ик клика кн-ки SUBMIT формы
-        this._form.addEventListener('submit', this._handleSubmit);
     }
 }
