@@ -1,7 +1,7 @@
 import '../pages/index.css';
-import initialCards from './utils/cards.js';
-import Card from './classes/Card.js';
-import Section from './classes/Section.js';
+import initialCards from '../scripts/utils/cards.js';
+import Card from '../scripts/components/Card.js';
+import Section from '../scripts/components/Section.js';
 import {
     formAddPlace,
     formEditProfile,
@@ -11,10 +11,10 @@ import {
 
     buttonAddPlace,
     buttonEditProfile
-} from './utils/constants.js';
+} from '../scripts/utils/constants.js';
 
-import PopupWithForm from "./classes/PopupWithForm.js";
-import UserInfo from "./classes/UserInfo.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import UserInfo from "../scripts/components/UserInfo.js";
 
 
     //########################//

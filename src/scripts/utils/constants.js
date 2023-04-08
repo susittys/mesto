@@ -1,5 +1,5 @@
 // эл-ты Набора карточек
-import FormValidator from "../classes/FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 const elementsNoPlaces = document.querySelector('.elements__no-places');
 const elementsContainer = document.querySelector('.elements__collection');
