@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // поддержка 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // поддержка css файлов (минификация)
 
 module.exports = {
-    entry: { main: './src/scripts/index.js' },
+    entry: { main: './src/pages/index.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
