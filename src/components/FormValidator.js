@@ -26,8 +26,7 @@ export default class {
 
         this._inputList.forEach( inputElement => {
             inputElement.addEventListener('input', () => {
-                this._inputElement = inputElement;
-                this._checkInputValidity();
+                this._checkInputValidity(inputElement);
                 this._toggleButtonState();
             });
         });
@@ -46,52 +45,45 @@ export default class {
     _hasInvalidInput() {
         // проходим по этому массиву методом some
         return this._inputList.some( inputElement => {
-            this._inputElement = inputElement;
             // Если поле не валидно, колбэк вернёт true
             // Обход массива прекратится и вся функция
             // hasInvalidInput вернёт true
 
-            return !this._isValid()
+            return !this._isValid( inputElement )
         })
     }
 
-    _checkInputValidity() {
-        if ( !this._isValid( this._inputElement ) ) {
-            this._showInputError();
+    _checkInputValidity(input) {
+        if ( !this._isValid( input ) ) {
+            this._showInputError( input );
         } else {
-            this._hideInputError();
+            this._hideInputError( input );
         }
     }
 
-    _isValid() {
-        return this._inputElement.validity.valid
+    _isValid(input) {
+        return input.validity.valid
     }
 
-    _showInputError() {
-        const errorElement = this._formElement.querySelector(`.${ this._inputElement.id }-error`);
-        const errorMessage = this._inputElement.validationMessage;
+    _showInputError(input) {
+        const errorElement = this._formElement.querySelector(`.${ input.id }-error`);
+        const errorMessage = input.validationMessage;
 
-        this._inputElement.classList.add(this._options.inputErrorClass);
+        input.classList.add(this._options.inputErrorClass);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._options.errorClass);
     }
 
-    _hideInputError() {
-        const errorElement = this._formElement.querySelector(`.${ this._inputElement.id }-error`);
-        this._inputElement.classList.remove(this._options.inputErrorClass);
+    _hideInputError(input) {
+        const errorElement = this._formElement.querySelector(`.${ input.id }-error`);
+        input.classList.remove(this._options.inputErrorClass);
         errorElement.classList.remove(this._options.errorClass);
         errorElement.textContent = '';
     }
 
     resetForm() {
-        const errorList   = this._formElement.querySelectorAll(this._options.inputErrorSelector);
-
-        errorList.forEach( elementError => {
-            elementError.classList.remove(this._options.errorClass);
-        });
-
-        this._inputList.forEach( elementInput => {
-            elementInput.classList.remove(this._options.inputErrorClass);
+        this._inputList.forEach( input => {
+            this._hideInputError( input )
         });
 
         this._toggleButtonState()

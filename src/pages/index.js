@@ -32,7 +32,7 @@ const defaultPlaceList = new Section({
             data: cardData,
             handleCardClick: () => {
                 popupWithImage.open({
-                    title: cardData.title,
+                    title: cardData.name,
                     link:  cardData.link
                 })
             }
