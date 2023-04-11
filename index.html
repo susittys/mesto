@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Места Республики Коми</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+<body class="root">
+    <div class="page">
+        <header class="header">
+            <a href="#">
+                <img class="header__logo" src="assets/images/9acae8482e5b5b17160c.svg" alt="Логотип Места России">
+            </a>
+        </header>
+
+        <main>
+            <section class="profile">
+                <img class="profile__avatar" src="assets/images/74c3c0fb802dcfa83abb.jpg" alt="Аватар Профиля">
+                <div class="profile__info">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit"></button>
+                    <p class="profile__job">Исследователь океана</p>
+                </div>
+                <button type="button" class="profile__add"></button>
+            </section>
+
+            <section class="elements">
+                <ul class="elements__collection"></ul>
+                <h2 class="elements__no-places" hidden>Нет добавленных карточек</h2>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2023 Mesto Russia-Komi</p>
+        </footer>
+
+        <div class="popup popup_type_profile" tabindex="-1">
+            <div class="popup__container">
+                <form class="popup__form" name="editProfile" novalidate>
+                    <fieldset class="popup__fieldset">
+                        <h2 class="popup__title">Редактировать профиль</h2>
+                        <div class="popup__row">
+                            <input name="name" class="popup__input popup__input_type_name" id="profile-name-input" type="text" placeholder="Введите имя" minlength="2" maxlength="40" autocomplete="off" required>
+                            <span class="popup__error profile-name-input-error">Вы пропустили это поле.</span>
+                        </div>
+                        <div class="popup__row">
+                            <input name="job" class="popup__input popup__input_type_job" id="profile-job-input" type="text" placeholder="Введите профессию" minlength="2" maxlength="200" autocomplete="off" required>
+                            <span class="popup__error profile-job-input-error">Вы пропустили это поле.</span>
+                        </div>
+                        <button type="submit" class="popup__submit">Сохранить</button>
+                    </fieldset>
+                </form>
+                <button type="reset" class="popup__close"></button>
+            </div>
+        </div>
+
+        <div class="popup popup_type_place" tabindex="-1">
+            <div class="popup__container">
+                <form class="popup__form" name="newPoint" novalidate>
+                    <h2 class="popup__title">Новое место</h2>
+                    <fieldset class="popup__fieldset">
+                        <div class="popup__row">
+                            <input name="name" class="popup__input popup__input_type_title" id="place-title-input" type="text" placeholder="Введите название" minlength="2" maxlength="30" autocomplete="off" required>
+                            <span class="popup__error place-title-input-error">Вы пропустили это поле.</span>
+                        </div>
+                        <div class="popup__row">
+                            <input name="link" class="popup__input popup__input_type_link" id="place-link-input" type="url" placeholder="Укажите ссылку" minlength="4" maxlength="2083" autocomplete="off" required>
+                            <span class="popup__error place-link-input-error">Введите адрес сайта.</span>
+                        </div>
+                        <button type="submit" class="popup__submit">Создать</button>
+                    </fieldset>
+                </form>
+                <button type="reset" class="popup__close"></button>
+            </div>
+        </div>
+
+        <div class="popup popup_type_image" tabindex="-1">
+            <div class="popup__container popup__container_type_image">
+                <img class="popup__full-image" src="assets/images/2c141b8fe1ae878bb66d.jpg" alt="Изображение города">
+                <p class="popup__subtitle-image">Описание изображения</p>
+                <button type="reset" class="popup__close"></button>
+            </div>
+        </div>
+    </div>
+
+    <template id="place-template">
+        <li class="elements__element">
+            <a href="#"></a>
+            <button type="button" class="elements__remove"></button>
+            <div class="elements__image-group">
+                <div class="elements__image-mask"></div>
+                <img class="elements__image" src="assets/images/2c141b8fe1ae878bb66d.jpg" alt="Изображение города">
+            </div>
+            <div class="elements__info-group">
+                <h2 class="elements__title">Город</h2>
+                <button type="button" class="elements__like"></button>
+            </div>
+        </li>
+    </template>
+</body>
+</html>
