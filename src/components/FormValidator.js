@@ -61,9 +61,7 @@ export default class {
         }
     }
 
-    _isValid(input) {
-        return input.validity.valid
-    }
+    _isValid = ( input ) => input.validity.valid;
 
     _showInputError(input) {
         const errorElement = this._formElement.querySelector(`.${ input.id }-error`);

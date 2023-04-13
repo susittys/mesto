@@ -7,7 +7,7 @@ export default class {
     }
 
     renderItems(items) {
-        items.forEach( this._renderer )
+        items.reverse().forEach( this._renderer )
     }
 
     addItem(element) {

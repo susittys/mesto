@@ -1,31 +1,69 @@
-import { checkNoPlaces } from '../utils/utils.js';
+import nonImageLink from '../images/image_no-places.jpg';
 
 export default class {
-    constructor({ data, handleCardClick}, selectorTemplate) {
+    constructor( { data, handleCardClick, handleLike, handleDislike, handleRemoveClick, checkUserLikes, checkUserOwner }, selectorTemplate ) {
         this._link  = data.link;
         this._title = data.name;
+        this._likes = data.likes ? data.likes : []; // костыль
+
+        this._userLike = false;
+        this._checkUserLikes = checkUserLikes.bind(this);
+
+        this._userOwner = false;
+        this._checkUserOwner = checkUserOwner.bind(this);
+
         this._handleCardClick = handleCardClick.bind(this);
+        this._handleRemoveClick = handleRemoveClick.bind(this);
+
+        this._handleLike = handleLike.bind(this);
+        this._handleDislike = handleDislike.bind(this);
+
         this._selectorTemplate = selectorTemplate
     }
 
-
     getCard() {
-        this.placeElement = this._getTemplate();
+        this._placeElement = this._getTemplate();
 
-        const titlePlaceElement   = this.placeElement.querySelector('.elements__title'),
-            imagePlaceElement   = this.placeElement.querySelector('.elements__image');
+        const titleElement = this._placeElement.querySelector('.elements__title'),
+            imageElement   = this._placeElement.querySelector('.elements__image'),
+            removeElement  = this._placeElement.querySelector('.elements__remove');
 
-        titlePlaceElement.textContent  = this._title;
-        imagePlaceElement.src = this._link;
-        imagePlaceElement.alt = this._title;
+        imageElement.onerror = ()=> imageElement.src = nonImageLink;
+
+        titleElement.textContent  = this._title;
+        imageElement.src = this._link;
+        imageElement.alt = this._title;
 
         this._setEventListener();
 
-        return this.placeElement;
+        this._checkUserOwner();
+        if ( !this._userOwner ) removeElement.remove();
+
+        this._toggleUserLike(this._likes);
+        this._updateLikeCounter(this._likes);
+
+        return this._placeElement
     }
 
+    _updateLikeCounter(likes){
+        const counterLikes = this._placeElement.querySelector('.elements__like-counter');
+        counterLikes.innerText = this._countLikes( {likes} )
+    }
+
+    _toggleUserLike(likes){
+        const likeElement = this._placeElement.querySelector('.elements__like');
+
+        this._checkUserLikes(likes);
+
+        if ( this._userLike ) likeElement.classList.add('elements__like_active')
+        else likeElement.classList.remove('elements__like_active')
+    }
+
+    _countLikes = ( {likes} ) => likes.length;
+
     _getTemplate() {
-        return ( document
+        return (
+            document
                 .querySelector(this._selectorTemplate)
                 .content
                 .querySelector('.elements__element')
@@ -33,29 +71,22 @@ export default class {
         )
     }
 
+    _hendlerLikeClick(){
+        if ( this._userLike ){
+            this._handleDislike();
+        } else {
+            this._handleLike();
+        }
+    }
+
     _setEventListener() {
+        const fullImageButton = this._placeElement.querySelector('.elements__image-group');
+        fullImageButton.addEventListener('click', this._handleCardClick)
 
-        const likeButton = {
-            element: this.placeElement.querySelector('.elements__like'),
-            // Фн-ия тоггле лайка
-            click: function () {
-                this.classList.toggle('elements__like_active');
-            }
-        };
+        const removeButton = this._placeElement.querySelector('.elements__remove');
+        removeButton.addEventListener('click', this._handleRemoveClick);
 
-        const removeButton = {
-            element: this.placeElement.querySelector('.elements__remove'),
-            // Фн-ия удаления карточки
-            click: function () {
-                this.closest('.elements__element').remove();
-                checkNoPlaces();
-            }
-        };
-
-        const fullImageButton = this.placeElement.querySelector('.elements__image-group');
-
-        likeButton.element.addEventListener('click', likeButton.click.bind( likeButton.element ) );
-        removeButton.element.addEventListener('click', removeButton.click.bind( removeButton.element ) );
-        fullImageButton.addEventListener('click', this._handleCardClick );
+        const likeButton = this._placeElement.querySelector('.elements__like');
+        likeButton.addEventListener('click', evt => this._hendlerLikeClick(evt));
     }
 }

@@ -1,5 +1,12 @@
+const elementAvatar = document.querySelector('.profile__ava');
+
 const elementsNoPlaces = document.querySelector('.elements__no-places');
 const elementsContainer = document.querySelector('.elements__collection');
+
+// эл-ты попап-окна Добавление места
+const popupElementAvatar = document.querySelector('.popup_type_avatar'),
+    formElementAvatar  = popupElementAvatar.querySelector('.popup__form'),
+    linkInputAvatar    = popupElementAvatar.querySelector('.popup__input_type_link');
 
 // эл-ты попап-окна Добавление места
 const popupElementAddPlace = document.querySelector('.popup_type_place'),
@@ -31,6 +38,7 @@ export {
     elementsNoPlaces,
 
     formElementPlace,
+    formElementAvatar,
     formElementEditProfile,
 
     nameEditProfile,
@@ -38,6 +46,9 @@ export {
 
     titleFullImage,
     imageFullImage,
+
+    linkInputAvatar,
+    elementAvatar,
 
     options
 }

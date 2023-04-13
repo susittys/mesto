@@ -1,7 +1,7 @@
 .elements__remove {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 9px;
     width: 30px;
     height: 30px;
     background: transparent url(../../../images/trash_rmv-btn.svg) no-repeat center;

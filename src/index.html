@@ -15,11 +15,14 @@
 
         <main>
             <section class="profile">
-                <img class="profile__avatar" src="<%=require('./images/Jacques_Cousteau_avatar.jpg')%>" alt="Аватар Профиля">
+                <div class="profile__avatar-group">
+                    <button class="profile_avatar-mask"></button>
+                    <img class="profile__ava" src="<%=require('./images/image_loading.gif')%>" alt="Аватар Профиля">
+                </div>
                 <div class="profile__info">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <h1 class="profile__name">...</h1>
                     <button type="button" class="profile__edit"></button>
-                    <p class="profile__job">Исследователь океана</p>
+                    <p class="profile__job">..</p>
                 </div>
                 <button type="button" class="profile__add"></button>
             </section>
@@ -33,6 +36,22 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2023 Mesto Russia-Komi</p>
         </footer>
+
+        <div class="popup popup_type_avatar" tabindex="-1">
+            <div class="popup__container popup__container_type_avatar">
+                <form class="popup__form" name="newAvatar" novalidate>
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <fieldset class="popup__fieldset">
+                        <div class="popup__row">
+                            <input name="avatar" class="popup__input popup__input_type_link" id="avatar-link-input" type="url" placeholder="Укажите ссылку" minlength="4" maxlength="2083" autocomplete="off" required>
+                            <span class="popup__error avatar-link-input-error">Введите ссылку.</span>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="popup__submit popup__submit_type_avatar">Обновить</button>
+                </form>
+                <button type="reset" class="popup__close"></button>
+            </div>
+        </div>
 
         <div class="popup popup_type_profile" tabindex="-1">
             <div class="popup__container">
@@ -81,11 +100,20 @@
                 <button type="reset" class="popup__close"></button>
             </div>
         </div>
+
+        <div class="popup popup_type_confirm" tabindex="-1">
+            <div class="popup__container popup__container_type_confirm">
+                <form class="popup__form" name="removeCard" novalidate>
+                    <h2 class="popup__title popup__title_type_confirm">Вы уверены?</h2>
+                    <button type="submit" class="popup__submit">Да</button>
+                </form>
+                <button type="reset" class="popup__close"></button>
+            </div>
+        </div>
     </div>
 
     <template id="place-template">
         <li class="elements__element">
-            <a href="#"></a>
             <button type="button" class="elements__remove"></button>
             <div class="elements__image-group">
                 <div class="elements__image-mask"></div>
@@ -93,7 +121,10 @@
             </div>
             <div class="elements__info-group">
                 <h2 class="elements__title">Город</h2>
-                <button type="button" class="elements__like"></button>
+                <div class="elements__like-conteiner">
+                    <button type="button" class="elements__like"></button>
+                    <p class="elements__like-counter">0</p>
+                </div>
             </div>
         </li>
     </template>
