@@ -150,9 +150,9 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar-group/profile__avatar-group.css ***!
   \*************************************************************************************************************************************************************************************/
 .profile__avatar-group{border-radius:50%;box-sizing:border-box;height:120px;margin:0;padding:0;position:relative;width:120px;z-index:8}
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar-mask/profile_avatar-mask.css ***!
-  \**********************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__avatar-mask/profile__avatar-mask.css ***!
+  \***********************************************************************************************************************************************************************************/
 .profile_avatar-mask{background-color:transparent;border:0;border-radius:inherit;cursor:url(assets/images/3c4440c8547b6cf38086.svg),pointer;height:100%;left:0;margin:0;opacity:0;padding:0;position:absolute;top:0;transition:opacity .15s ease-in-out;width:100%}.profile__avatar-group:hover .profile_avatar-mask{background:url(assets/images/a086f758840ae814ecde.svg) no-repeat 50%,rgba(0,0,0,.8);opacity:1}.profile_avatar-mask:hover:active{background-color:rgba(0,0,0,.5)}
 /*!*******************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/profile/__ava/profile__ava.css ***!
