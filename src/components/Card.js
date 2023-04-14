@@ -1,7 +1,5 @@
-import nonImageLink from '../images/image_no-places.jpg';
-
 export default class {
-    constructor( { data, handleCardClick, handleLike, handleDislike, handleRemoveClick, checkUserLikes, checkUserOwner }, selectorTemplate ) {
+    constructor( { data, handleCardClick, handleLike, handleDislike, handleRemoveClick, checkUserLikes, checkUserOwner, imageForError }, selectorTemplate ) {
         this._link  = data.link;
         this._title = data.name;
         this._likes = data.likes ? data.likes : []; // костыль
@@ -18,6 +16,7 @@ export default class {
         this._handleLike = handleLike.bind(this);
         this._handleDislike = handleDislike.bind(this);
 
+        this._imageForError = imageForError;
         this._selectorTemplate = selectorTemplate
     }
 
@@ -28,7 +27,7 @@ export default class {
             imageElement   = this._placeElement.querySelector('.elements__image'),
             removeElement  = this._placeElement.querySelector('.elements__remove');
 
-        imageElement.onerror = ()=> imageElement.src = nonImageLink;
+        imageElement.onerror = ()=> imageElement.src = this._imageForError;
 
         titleElement.textContent  = this._title;
         imageElement.src = this._link;
@@ -39,6 +38,9 @@ export default class {
         this._checkUserOwner();
         if ( !this._userOwner ) removeElement.remove();
 
+        this._counterLikes = this._placeElement.querySelector('.elements__like-counter');
+        this._likeElement  = this._placeElement.querySelector('.elements__like');
+
         this._toggleUserLike(this._likes);
         this._updateLikeCounter(this._likes);
 
@@ -46,17 +48,14 @@ export default class {
     }
 
     _updateLikeCounter(likes){
-        const counterLikes = this._placeElement.querySelector('.elements__like-counter');
-        counterLikes.innerText = this._countLikes( {likes} )
+        this._counterLikes.innerText = this._countLikes( {likes} )
     }
 
     _toggleUserLike(likes){
-        const likeElement = this._placeElement.querySelector('.elements__like');
-
         this._checkUserLikes(likes);
 
-        if ( this._userLike ) likeElement.classList.add('elements__like_active')
-        else likeElement.classList.remove('elements__like_active')
+        if ( this._userLike ) this._likeElement.classList.add('elements__like_active')
+        else this._likeElement.classList.remove('elements__like_active')
     }
 
     _countLikes = ( {likes} ) => likes.length;

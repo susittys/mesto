@@ -1,7 +1,6 @@
-import {checkNoPlaces} from "../utils/utils.js";
-
 export default class {
-        constructor({ renderer }, containerSelector) {
+    constructor({ renderer, checkNoPlaces }, containerSelector) {
+        this._checkNoPlaces = checkNoPlaces;
         this._renderer = renderer;
         this._container = document.querySelector(containerSelector);
     }
@@ -13,6 +12,6 @@ export default class {
     addItem(element) {
         this._container.prepend(element);
         // если картинка добавлена, убрать "Нет добавленных.."
-        checkNoPlaces();
+        this._checkNoPlaces();
     }
 }

@@ -1,41 +1,80 @@
 export default class {
-
-    getInitCards({ data, config }){
-        this._executeQuery(data, config)
+    constructor({ baseUrl, headers }) {
+        this._baseUrl = baseUrl;
+        this._headers = headers;
     }
 
-    getUserInfo({ data, config }){
-        this._executeQuery(data, config)
+    _checkResponse(res){
+        if ( res.ok ) return res.json();
+        return Promise.reject(`Ошибка: ${ res.status }`);
     }
 
-    updateAvatar({ data, config }){
-        this._executeQuery(data, config)
+    getInitCards(link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'GET'
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 
-    addUserCard({ data, config }){
-        this._executeQuery(data, config)
+    getUserInfo(link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'GET'
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 
-    editUserProfile({ data, config }){
-        this._executeQuery(data, config)
+    updateAvatar(avatar, link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'PATCH',
+                body: JSON.stringify(avatar)
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 
-    setLikeStatus({ data, config }){
-        this._executeQuery(data, config)
+    addUserCard(data, link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 
-    removeUserCard({ data, config }){
-        this._executeQuery(data, config)
+    editUserProfile({ name, job }, link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'PATCH',
+                body: JSON.stringify({
+                    name: name,
+                    about: job
+                })
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 
-    _executeQuery({ link, callback }, config){
-        fetch(link, config)
-            .then( (response) => {
-                if ( response.ok ) return response.json();
+    setLikeStatus({ link, method }){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method
+            }).then( response => this._checkResponse( response ) )
+        )
+    }
 
-                return Promise.reject(`Ошибка: ${ response.status }`);
-            })
-            .then( data => callback(data) )
-            .catch( error => console.log(error) )
+    removeUserCard(link){
+        return (
+            fetch(this._baseUrl + link, {
+                headers: this._headers,
+                method: 'DELETE'
+            }).then( response => this._checkResponse( response ) )
+        )
     }
 }
